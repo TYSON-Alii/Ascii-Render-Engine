@@ -60,11 +60,11 @@ int main() {
 		vex2(-1, 2), vex2(1, 2)
 	};
 	char _tch[]{
-				  '0',
+		'0',
 		'/', '-', '|', '-', '\\',
-		'/',	  '|',		'\\',
-			   '/',	  '\\',
-			   '|',	  '|'
+		'/','|','\\',
+		'/','\\',
+		'|','|'
 	};
 	byte whiteblack = calcolor(XS_WHITE, XS_BLACK);
 	byte whiteyellow = calcolor(XS_WHITE, XS_YELLOW);
