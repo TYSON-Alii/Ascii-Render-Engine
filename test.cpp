@@ -27,6 +27,28 @@ int main() {
 	rect2.lett('B');
 	rect2.pos = vex2(15, 10);
 
+	XsTexture tex;
+	const char* _tex =
+		"###0###"
+		"#/-|-\\#"
+		"/##|##\\"
+		"##/#\\##"
+		"##|#|##";
+	byte bgcolor = calcolor(XS_WHITE, XS_DARKGREY);
+	byte whiteblue = calcolor(XS_WHITE, XS_BLUE);
+	byte _colortex[]{
+		bgcolor,	bgcolor,	bgcolor,	whiteblue,	bgcolor,	bgcolor,	bgcolor,
+		bgcolor,	whiteblue,	whiteblue,	whiteblue,	whiteblue,	whiteblue,	bgcolor,
+		whiteblue,	bgcolor,	bgcolor,	whiteblue,	bgcolor,	bgcolor,	whiteblue,
+		bgcolor,	bgcolor,	whiteblue,	bgcolor,	whiteblue,	bgcolor,	bgcolor,
+		bgcolor,	bgcolor,	whiteblue,	bgcolor,	whiteblue,	bgcolor,	bgcolor,
+	};
+	tex.load(vex2(7, 5), _tex);
+	tex.loadColor(vex2(7, 5), _colortex);
+	XsMesh mesh;
+	mesh.pos = vex2(30, 7);
+	mesh.tex = tex;
+	
 	XsPoint tpoint;
 	vex2 _tpos[]{
 		vex2(0, -2),
