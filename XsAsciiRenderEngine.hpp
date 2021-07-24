@@ -151,7 +151,9 @@ bool XsLimiter(XsChrono& __vev, float __vev2) {
 	return false;
 };
 
-struct texel {
+class texel {
+private:
+public:
 	texel() {};
 	texel(char v1, byte v2) { lett = v1; color = v2; };
 	char lett = ' ';
@@ -181,7 +183,6 @@ public:
 	void lett(char v) { _t.lett = v; };
 	char& lett() { return _t.lett; };
 };
-
 class XsTexture {
 private:
 	std::vector<std::vector<texel>> _ct;
@@ -320,7 +321,7 @@ public:
 			const std::wstring _ws = std::wstring(_name.begin(), _name.end());
 			SetWindowText(GetConsoleWindow(), _ws.c_str());
 			renderList.resize(_scale.y);
-			for (size_t i = 0; i < renderList.size(); i++) {
+			for (volatile size_t i = 0; i < renderList.size(); i++) {
 				renderList[i].resize(_scale.x);
 				std::fill(renderList[i].begin(), renderList[i].end(), texel(_background, _color));
 			};
@@ -328,15 +329,15 @@ public:
 		if (XsLimiter(_clk, fps)) {
 			system("cls");
 			SetWindowPos(GetConsoleWindow(), 0, _pos.x, _pos.y, (_scale.x) * _cs.x + (_cs.x * 5), (_scale.y) * _cs.y + (_cs.x * 5), SWP_SHOWWINDOW);
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), renderList[0][0].color);
-			for (size_t j = 0; j < renderList.size(); j++) {
-				for (size_t i = 0; i < renderList[j].size(); i++) {
+			SetConsoleTextAttribute(hand, renderList[0][0].color);
+			for (volatile size_t j = 0; j < renderList.size(); j++) {
+				for (volatile size_t i = 0; i < renderList[j].size(); i++) {
 					if (i > 0 && renderList[j][i].color != renderList[j][i - 1].color)
-						SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), renderList[j][i].color);
-					std::cout << renderList[j][i].lett;
+						SetConsoleTextAttribute(hand, renderList[j][i].color);
+					putchar(renderList[j][i].lett);
 				};
 				if (j != renderList.size() - 1)
-				std::cout << "\n";
+					putchar('\n');
 			};
 		};
 		_r = false;
@@ -346,7 +347,7 @@ public:
 			const std::wstring _ws = std::wstring(_name.begin(), _name.end());
 			SetWindowText(GetConsoleWindow(), _ws.c_str());
 			renderList.resize(_scale.y);
-			for (size_t i = 0; i < renderList.size(); i++) {
+			for (volatile size_t i = 0; i < renderList.size(); i++) {
 				renderList[i].resize(_scale.x);
 				std::fill(renderList[i].begin(), renderList[i].end(), texel(_background, _color));
 			};
@@ -354,15 +355,21 @@ public:
 		system("cls");
 		SetWindowPos(GetConsoleWindow(), 0, _pos.x, _pos.y, (_scale.x) * _cs.x + (_cs.x * 5), (_scale.y) * _cs.y + (_cs.x * 5), SWP_SHOWWINDOW);
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), renderList[0][0].color);
-		for (size_t j = 0; j < renderList.size(); j++) {
-			for (size_t i = 0; i < renderList[j].size(); i++) {
+		for (volatile size_t j = 0; j < renderList.size(); j++) {
+			for (volatile size_t i = 0; i < renderList[j].size(); i++) {
 				if (i > 0 && renderList[j][i].color != renderList[j][i - 1].color)
 					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), renderList[j][i].color);
-				std::cout << renderList[j][i].lett;
+				putchar(renderList[j][i].lett);
 			};
 			if (j != renderList.size() - 1)
-				std::cout << "\n";
+				putchar('\n');
 		};
 		_r = false;
 	};
+	void clear() {
+		for (volatile size_t i = 0; i < renderList.size(); i++) {
+			renderList[i].resize(_scale.x);
+			std::fill(renderList[i].begin(), renderList[i].end(), texel(_background, _color));
+		};
+	}
 };
